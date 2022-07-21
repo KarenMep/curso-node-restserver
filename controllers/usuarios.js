@@ -23,7 +23,7 @@ const usuariosGet = async(req = request, res = response) => {
 
 }
 
-const usuariosPut =  async(req, res) => {
+const usuariosPut =  async(req, res = response) => {
 
     const {id} = req.params;
 
@@ -41,7 +41,7 @@ const usuariosPut =  async(req, res) => {
     res.json(usuario);
 }
 
-const usuariosPost = async(req, res) => {
+const usuariosPost = async(req, res = response) => {
 
     const {nombre, correo, password, rol} = req.body;
 
@@ -61,11 +61,15 @@ const usuariosPost = async(req, res) => {
     });
 }
 
-const usuariosDelete = (req, res) => {
-    res.json({
-        ok: true,
-        msg: 'delete API - controlador'
-    });
+const usuariosDelete = async(req, res = response) => {
+
+    const {id} = req.params;
+
+    // const usuario = await Usuario.findByIdAndDelete(id)
+    
+    
+    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
+    res.json(usuario);
 }
 
 
